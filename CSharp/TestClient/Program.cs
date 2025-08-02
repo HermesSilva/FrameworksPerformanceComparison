@@ -48,6 +48,7 @@ namespace TestClient
                     if (pl >= _Payloads.Count)
                         pl = 0;
                     using var content = JsonContent.Create(_Payloads[pl], typeof(XPayload));
+                    
                     var response = client.PostAsync("/", content).Result;
                     response.EnsureSuccessStatusCode();
 

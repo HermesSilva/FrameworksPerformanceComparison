@@ -1,35 +1,32 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Security.Cryptography.X509Certificates;
-using System.Text.Json;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Common
 {
     public class XMetrics
     {
-
-        private long _TotalRequests = 0;
-        private long _TotalErrors = 0;
-        private long _TotalDurationTicks = 0;
-        private long _Start = 0;
+        private long _TotalRequests;
+        private long _TotalErrors;
+        private long _TotalDurationTicks;
+        private long _TotalDataSize;
+        private readonly long _StartTimestamp;
 
         private readonly double[] _LatencyBuffer = new double[10000];
-        private int _LatencyIndex = 0;
-        private int _LatencyCount = 0;
-        private long _StartTime;
-        private long _DataSise;
-        private readonly object _LatencyLock = new object();
+        private int _LatencyIndex;
+        private int _LatencyCount;
+
+        private long _CurrentStartTime;
+        Object _ToLock = new object();
 
         public XMetrics()
         {
-            _Start = Stopwatch.GetTimestamp();
+            _StartTimestamp = Stopwatch.GetTimestamp();
         }
 
         public void Start()
         {
-            _StartTime = Stopwatch.GetTimestamp();
+            _CurrentStartTime = Stopwatch.GetTimestamp();
         }
 
         public void Error()
@@ -37,25 +34,21 @@ namespace Common
             Interlocked.Increment(ref _TotalErrors);
         }
 
-        public void End(long pDataSise)
+        public void End(long dataSize)
         {
-            Interlocked.Add(ref _DataSise, pDataSise);
-
-            var durationTicks = Stopwatch.GetTimestamp() - _StartTime;
-            var durationMs = durationTicks * 1000.0 / Stopwatch.Frequency;
-
-            Interlocked.Increment(ref _TotalRequests);
-            Interlocked.Add(ref _TotalDurationTicks, durationTicks);
-
-            AddLatencySample(durationMs);
-        }
-
-        private void AddLatencySample(double pDurationMs)
-        {
-            lock (_LatencyLock)
+            lock (_ToLock)
             {
-                _LatencyBuffer[_LatencyIndex] = pDurationMs;
-                _LatencyIndex = (_LatencyIndex + 1) % _LatencyBuffer.Length;
+                _TotalDataSize += dataSize;
+
+                var durationTicks = Stopwatch.GetTimestamp() - _CurrentStartTime;
+                var durationMs = durationTicks * 1000.0 / Stopwatch.Frequency;
+
+                _TotalRequests++;
+                _TotalDurationTicks += durationTicks;
+                _LatencyIndex++;
+                var index = _LatencyIndex % _LatencyBuffer.Length;
+                _LatencyBuffer[index] = durationMs;
+
                 if (_LatencyCount < _LatencyBuffer.Length)
                     _LatencyCount++;
             }
@@ -66,56 +59,58 @@ namespace Common
             var totalRequests = Interlocked.Read(ref _TotalRequests);
             var totalErrors = Interlocked.Read(ref _TotalErrors);
             var totalTicks = Interlocked.Read(ref _TotalDurationTicks);
+            var totalData = Interlocked.Read(ref _TotalDataSize);
 
-            var avgDurationMs = totalRequests > 0 ? (totalTicks * 1000.0 / Stopwatch.Frequency) / totalRequests : 0;
+            double avgDurationMs = totalRequests > 0
+                ? (totalTicks * 1000.0 / Stopwatch.Frequency) / totalRequests
+                : 0;
 
-            var (p50, p95, p99) = CalculatePercentiles();
-            var elapsedtk = (Stopwatch.GetTimestamp() - _Start);
-            var elapsedms = (elapsedtk / Stopwatch.Frequency);
+            var latencySnapshot = GetLatencySnapshot();
+            Array.Sort(latencySnapshot);
+
+            var elapsedTicks = Stopwatch.GetTimestamp() - _StartTimestamp;
+            var elapsedSeconds = elapsedTicks / Stopwatch.Frequency;
 
             return new PerformanceMetrics
             {
-                Timestamp = new TimeSpan(elapsedtk),
+                Timestamp = new TimeSpan(elapsedTicks),
                 TotalRequests = totalRequests,
                 TotalErrors = totalErrors,
-                RequestsPerSecond = elapsedms > 0 ? (_TotalRequests / elapsedms) : 0,
+                RequestsPerSecond = elapsedSeconds > 0 ? totalRequests / elapsedSeconds : 0,
                 AverageLatencyMs = Math.Round(avgDurationMs, 3),
-                P50LatencyMs = Math.Round(p50, 3),
-                P95LatencyMs = Math.Round(p95, 3),
-                P99LatencyMs = Math.Round(p99, 3),
-                DataSise = _DataSise / 1024,
-                DataSecond = (elapsedms > 0 ? _DataSise / elapsedms : 0) / 1024.0M,
-                SuccessRate = totalRequests > 0 ? Math.Round((double)(totalRequests - totalErrors) / totalRequests * 100, 2) : 100.0
+                P50LatencyMs = Math.Round(GetPercentile(latencySnapshot, 50), 3),
+                P95LatencyMs = Math.Round(GetPercentile(latencySnapshot, 95), 3),
+                P99LatencyMs = Math.Round(GetPercentile(latencySnapshot, 99), 3),
+                DataSize = totalData / 1024,
+                DataSecond = (elapsedSeconds > 0 ? totalData / elapsedSeconds : 0M) / 1024.0M,
+
+                SuccessRate = totalRequests > 0
+
+                    ? Math.Round((double)(totalRequests - totalErrors) / totalRequests * 100, 2)
+                    : 100.0
             };
         }
 
-        private (double p50, double p95, double p99) CalculatePercentiles()
+        private double[] GetLatencySnapshot()
         {
-            lock (_LatencyLock)
-            {
-                if (_LatencyCount == 0)
-                    return (0, 0, 0);
+            var count = Math.Min(Volatile.Read(ref _LatencyCount), _LatencyBuffer.Length);
+            var snapshot = new double[count];
 
-                var validCount = Math.Min(_LatencyCount, _LatencyBuffer.Length);
-                var samples = new double[validCount];
-                Array.Copy(_LatencyBuffer, samples, validCount);
-                Array.Sort(samples);
+            for (int i = 0; i < count; i++)
+                snapshot[i] = Volatile.Read(ref _LatencyBuffer[i]);
 
-                return (GetPercentile(samples, 50), GetPercentile(samples, 95), GetPercentile(samples, 99));
-            }
+            return snapshot;
         }
 
-        private static double GetPercentile(double[] pSortedData, double pPercentile)
+        private static double GetPercentile(double[] sortedData, double percentile)
         {
-            if (pSortedData.Length == 0)
+            if (sortedData.Length == 0)
                 return 0;
 
-            var index = (int)Math.Ceiling(pPercentile / 100.0 * pSortedData.Length) - 1;
-            index = Math.Max(0, Math.Min(index, pSortedData.Length - 1));
-            return pSortedData[index];
+            var index = (int)Math.Ceiling(percentile / 100.0 * sortedData.Length) - 1;
+            index = Math.Clamp(index, 0, sortedData.Length - 1);
+            return sortedData[index];
         }
-
-
     }
 
     public class PerformanceMetrics
@@ -152,19 +147,17 @@ namespace Common
         {
             get; set;
         }
-        public double SuccessRate
+        public long DataSize
         {
-            get; set;
-        }
-        public long DataSise
-        {
-            get;
-            internal set;
+            get; internal set;
         }
         public decimal DataSecond
         {
-            get;
-            internal set;
+            get; internal set;
+        }
+        public double SuccessRate
+        {
+            get; set;
         }
 
         public override string ToString()
@@ -172,7 +165,7 @@ namespace Common
             return $@"Performance Metrics Report
 ========================
 Timestamp: {Timestamp}
-Total Data: {DataSise:N0} KB
+Total Data: {DataSize:N0} KB
 Total DataSecond: {DataSecond:N2} KB 
 Total Requests: {TotalRequests:N0} 
 Total Errors: {TotalErrors:N0}
@@ -186,6 +179,4 @@ Success Rate: {SuccessRate:F2}%
 Generated at: {DateTime.UtcNow:yyyy-MM-dd HH:mm:ss} UTC";
         }
     }
-
-
 }

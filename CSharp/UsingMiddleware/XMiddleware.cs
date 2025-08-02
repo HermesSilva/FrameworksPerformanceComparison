@@ -28,9 +28,12 @@ namespace UsingMiddleware
                 await _Next(pContext);
                 return;
             }
-            var strm = new MemoryStream();
-            await pContext.Request.Body.CopyToAsync(strm);
-            var datazise = strm.Length;
+            var data = await pContext.Request.ReadFromJsonAsync<XPayload>(new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+                AllowTrailingCommas = true,
+                ReadCommentHandling = JsonCommentHandling.Skip
+            });
             Metrics.Start();
             try
             {
@@ -46,7 +49,7 @@ namespace UsingMiddleware
             }
             finally
             {
-                Metrics.End(datazise);
+                Metrics.End(0);
             }
         }
     }
