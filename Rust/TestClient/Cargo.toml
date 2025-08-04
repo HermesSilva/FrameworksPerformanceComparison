@@ -1,11 +1,19 @@
 [package]
-name = "TestClient"
+name = "hello_rust"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
 rand = "0.9.2"
+uuid = { version = "1.17.0", features = ["v4","serde"] }
+chrono = "0.4.41"
+tokio = { version = "1.47.1", features = ["rt-multi-thread","full"] }
+reqwest = { version = "0.12.22", features = ["json"] }
+once_cell = "1.21.3"
+serde = { version = "1.0.219", features = ["derive"] }
+serde_json = "1.0.142"
+futures = "0.3.31"
 
 [profile.release]
-opt-level = 3  # Menos agressivo
+opt-level = 2  # Menos agressivo
 debug = true   # Mantém debug info

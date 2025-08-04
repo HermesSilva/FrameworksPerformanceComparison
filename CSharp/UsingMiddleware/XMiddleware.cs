@@ -4,10 +4,11 @@ using System.IO;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-
+using System.Linq;
 using Common;
 
 using Microsoft.AspNetCore.Http;
+using System.Buffers;
 
 namespace UsingMiddleware
 {
@@ -28,12 +29,21 @@ namespace UsingMiddleware
                 await _Next(pContext);
                 return;
             }
-            var data = await pContext.Request.ReadFromJsonAsync<XPayload>(new JsonSerializerOptions
+            //var str = await pContext.Request.BodyReader.ReadAsync();
+            //byte[] result = new byte[str.Buffer.Length];
+            //str.Buffer.CopyTo(result);
+            try
             {
-                PropertyNameCaseInsensitive = true,
-                AllowTrailingCommas = true,
-                ReadCommentHandling = JsonCommentHandling.Skip
-            });
+                var data = await pContext.Request.ReadFromJsonAsync<XPayload>(new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true,
+                    AllowTrailingCommas = true,
+                    ReadCommentHandling = JsonCommentHandling.Skip
+                });
+            }
+            catch (Exception ex)
+            {
+            }
             Metrics.Start();
             try
             {
