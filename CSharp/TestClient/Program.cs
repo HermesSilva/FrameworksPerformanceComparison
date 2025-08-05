@@ -14,7 +14,7 @@ namespace TestClient
         static Timer _Timer;
         static void Main(string[] args)
         {
-            var clients = 1;
+            var clients = 32;
             if (args?.Length > 0)
                 int.TryParse(args[0], out clients);
             _Payloads = XPayloadGenerator.CreateMultiplePayloads(10_000);
@@ -38,7 +38,7 @@ namespace TestClient
             client.BaseAddress = new Uri("http://localhost:21012");
             client.Timeout = TimeSpan.FromSeconds(20);
             var pl = 0;
-            for (int i = 0; i < 10_000_000; i++)
+            for (uint i = 0; i < 4_000_000_000; i++)
             {
                 Int64 dsize = 0;
                 try
@@ -49,8 +49,8 @@ namespace TestClient
                         pl = 0;
                     using var content = JsonContent.Create(_Payloads[pl], typeof(XPayload));
                     
-                    var response = client.PostAsync("/", content).Result;
-                    response.EnsureSuccessStatusCode();
+                    //var response = client.PostAsync("/", content).Result;
+                    //response.EnsureSuccessStatusCode();
 
                 }
                 catch (Exception ex)
