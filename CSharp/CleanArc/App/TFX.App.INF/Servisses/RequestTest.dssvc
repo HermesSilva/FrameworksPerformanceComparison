@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<XSVCDesigner ID="EC76DA97-6329-4BC3-B446-3609F2CC807B" Name="RequestTest" ModuleID="0899F76D-78D6-4A91-AAC0-FE3E359C9E40">
+  <XValues>
+    <XData Name="RelativeFolder" ID="DCAA1E55-B8D5-436C-8543-DBB4C68F6B89" Type="String">Servisses</XData>
+    <XData Name="ConfigID" ID="1B728749-8544-4FEA-9A7D-B6279B6398FC" Type="Guid">49C0E3DC-5003-46D7-B3D2-E6C2C633768F</XData>
+    <XData Name="ConfigID" ID="70591062-3DC1-4E07-B35B-F5C1EF6B2D4C" Type="Guid">0B89286A-80A8-4785-B1D1-EB15FA9F3403</XData>
+    <XData Name="ServerID" ID="5BAA4997-C2C0-4544-956B-76425D607BAB" Type="Guid">90938A1F-6617-4E46-9909-6BD82ECCAB37</XData>
+    <XData Name="ComponentsID" ID="B8DF7670-0524-4151-98E9-93545460C5DA" Type="Guid[]">0022F6E4-D821-4340-BD24-347DC8599804|EA82BE23-BC83-47FD-B5DF-9F88D68B2AB2|A0402EDE-9A99-407C-AA27-7A9A563E5D9E|6B56A2F9-EB4A-4C45-8D36-095FDC11423A|54FBEA94-FD63-4D44-807A-D9BA2F9A9FDB|A4BC75AE-BF75-4B18-833D-484FA7AA6109|645CBF01-D245-4EAB-A93C-43E8AFC2F3AB|5BDE0EB6-9328-461E-BFF8-8E55B6A8A12E|1D0A0ED2-84BB-44E0-A6ED-84D1A09C96CA|5F501D3C-E3BC-42E4-BACC-F8E04E23D729</XData>
+    <XData Name="Type" ID="760FAE3B-718E-4839-921F-292800986ECB" Type="XServiceType">Utility</XData>
+    <XData Name="HasWebApi" ID="77932336-7026-4ED1-A617-480254F506FE" Type="Boolean">true</XData>
+    <XData Name="IsTransactional" ID="22591935-07CB-4405-BED5-3254EE8838ED" Type="Boolean">false</XData>
+  </XValues>
+  <XSVCEndPoints Name="EndPoints" ID="5A880A44-22C1-4D1D-B230-C15217AC40B8">
+    <XSVCEndPoint ID="9D284F23-567E-44CF-B36B-76387B8EB94D" Name="Execute">
+      <XValues>
+        <XData Name="Title" ID="F9789344-AFE7-41A7-9D16-F4C22EAF190D" Type="String">
+          <XLanguage IETFCode="pt-br" IsDefault="true">Execute</XLanguage>
+        </XData>
+        <XData Name="IsDefault" ID="2DA04072-AB74-449A-BC28-7DB5333EC830" Type="Boolean">true</XData>
+      </XValues>
+      <XSVCPayloadEndPoint Name="PayloadFields" ID="CD8186A2-2631-4BAD-8D32-78AEC6113EBF">
+        <XValues />
+      </XSVCPayloadEndPoint>
+    </XSVCEndPoint>
+    <XValues />
+  </XSVCEndPoints>
+  <XSVCAddIns Name="Additional" ID="F4537E8E-FB8A-49B9-BEFF-80A2626E0893">
+    <XSVCInjectionSVC ID="F7FA5929-AD81-4E9F-B3F9-91FB88CDA534" Name="ServiceInjection">
+      <XValues>
+        <XData Name="Title" ID="F9789344-AFE7-41A7-9D16-F4C22EAF190D" Type="String">
+          <XLanguage IETFCode="pt-br" IsDefault="true">Service Injection</XLanguage>
+        </XData>
+      </XValues>
+    </XSVCInjectionSVC>
+    <XSVCDBContexTable ID="1C6C868B-EB1E-436B-80B8-EA740F37DE04" Name="AditionalTables">
+      <XValues>
+        <XData Name="Title" ID="F9789344-AFE7-41A7-9D16-F4C22EAF190D" Type="String">
+          <XLanguage IETFCode="pt-br" IsDefault="true">Aditional Tables</XLanguage>
+        </XData>
+      </XValues>
+    </XSVCDBContexTable>
+    <XValues />
+  </XSVCAddIns>
+  <XSVCResultSet Name="ResultSet" ID="6217B1B3-5B20-48E7-BA0E-6FD0FB8A5BAD">
+    <XValues />
+    <XSVCField ID="66C14A35-56B6-42D3-91E6-0C3A2E64950E" ParentID="FF504C06-A658-4785-8A81-7B722FE3D198">
+      <XValues>
+        <XParentData Name="ParentID" ID="78424203-E6A4-433F-9110-7FEEE1580D68" ElementID="FF504C06-A658-4785-8A81-7B722FE3D198" Text="ID" DocumentID="00000000-0000-0000-0000-000000000000" DocumentName="RequestTest" ModuleID="00000000-0000-0000-0000-000000000000" ModuleName="TFX.App.INF" DataEx="">FF504C06-A658-4785-8A81-7B722FE3D198</XParentData>
+      </XValues>
+    </XSVCField>
+    <XSVCField ID="579572F3-FC35-4D86-A3E1-1E7098233DB9" ParentID="AF74B6DD-E5A7-4F49-BFAE-39F024381764">
+      <XValues>
+        <XParentData Name="ParentID" ID="78424203-E6A4-433F-9110-7FEEE1580D68" ElementID="AF74B6DD-E5A7-4F49-BFAE-39F024381764" Text="Name" DocumentID="00000000-0000-0000-0000-000000000000" DocumentName="RequestTest" ModuleID="00000000-0000-0000-0000-000000000000" ModuleName="TFX.App.INF" DataEx="">AF74B6DD-E5A7-4F49-BFAE-39F024381764</XParentData>
+      </XValues>
+    </XSVCField>
+    <XSVCField ID="8C3C0EC2-0A0E-4DCA-AADF-3ACE5502FB5E" ParentID="0F8BCA6F-E846-4BC8-92BD-7DA86E3E664A">
+      <XValues>
+        <XParentData Name="ParentID" ID="78424203-E6A4-433F-9110-7FEEE1580D68" ElementID="0F8BCA6F-E846-4BC8-92BD-7DA86E3E664A" Text="Title" DocumentID="00000000-0000-0000-0000-000000000000" DocumentName="RequestTest" ModuleID="00000000-0000-0000-0000-000000000000" ModuleName="TFX.App.INF" DataEx="">0F8BCA6F-E846-4BC8-92BD-7DA86E3E664A</XParentData>
+      </XValues>
+    </XSVCField>
+  </XSVCResultSet>
+  <XSVCUserFields Name="UserFields" ID="0B4D2380-A634-4766-98A5-81983C7A1E08">
+    <XSVCUserField ID="FF504C06-A658-4785-8A81-7B722FE3D198" Name="ID">
+      <XValues>
+        <XData Name="Title" ID="F9789344-AFE7-41A7-9D16-F4C22EAF190D" Type="String">
+          <XLanguage IETFCode="pt-br" IsDefault="true">ID</XLanguage>
+        </XData>
+        <XData Name="TypeID" ID="244BD6B3-4873-4957-A34D-FD97F7DBD90D" Type="Guid">8C5DEBC0-4165-4429-B106-1554552F802E</XData>
+      </XValues>
+    </XSVCUserField>
+    <XSVCUserField ID="AF74B6DD-E5A7-4F49-BFAE-39F024381764" Name="Name">
+      <XValues>
+        <XData Name="Title" ID="F9789344-AFE7-41A7-9D16-F4C22EAF190D" Type="String">
+          <XLanguage IETFCode="pt-br" IsDefault="true">Name</XLanguage>
+        </XData>
+        <XData Name="TypeID" ID="244BD6B3-4873-4957-A34D-FD97F7DBD90D" Type="Guid">8A656713-0DBB-4D25-9CF9-8DA0DBAD4E62</XData>
+      </XValues>
+    </XSVCUserField>
+    <XSVCUserField ID="0F8BCA6F-E846-4BC8-92BD-7DA86E3E664A" Name="Title">
+      <XValues>
+        <XData Name="Title" ID="F9789344-AFE7-41A7-9D16-F4C22EAF190D" Type="String">
+          <XLanguage IETFCode="pt-br" IsDefault="true">Title</XLanguage>
+        </XData>
+        <XData Name="TypeID" ID="244BD6B3-4873-4957-A34D-FD97F7DBD90D" Type="Guid">8A656713-0DBB-4D25-9CF9-8DA0DBAD4E62</XData>
+      </XValues>
+    </XSVCUserField>
+    <XValues />
+  </XSVCUserFields>
+  <XSVCDataView Name="DataView" ID="DC242E7F-74FB-4783-A2A0-2D5BFB9D30DE">
+    <XValues />
+  </XSVCDataView>
+  <XSVCOrderBy Name="OrderBy" ID="E921FDD9-424A-4EEC-9906-CDE241858C7C">
+    <XValues />
+  </XSVCOrderBy>
+  <XSVCWhere Name="Where" ID="E508D912-04F7-4DCA-B3B3-827D00A44C60">
+    <XValues />
+  </XSVCWhere>
+</XSVCDesigner>

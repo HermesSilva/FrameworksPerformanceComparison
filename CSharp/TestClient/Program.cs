@@ -14,7 +14,7 @@ namespace TestClient
         static Timer _Timer;
         static void Main(string[] args)
         {
-            var clients = 32;
+            var clients = 30;
             if (args?.Length > 0)
                 int.TryParse(args[0], out clients);
             _Payloads = XPayloadGenerator.CreateMultiplePayloads(10_000);
@@ -49,8 +49,8 @@ namespace TestClient
                         pl = 0;
                     using var content = JsonContent.Create(_Payloads[pl], typeof(XPayload));
                     
-                    //var response = client.PostAsync("/", content).Result;
-                    //response.EnsureSuccessStatusCode();
+                    var response = client.PostAsync("/", content).Result;
+                    response.EnsureSuccessStatusCode();
 
                 }
                 catch (Exception ex)

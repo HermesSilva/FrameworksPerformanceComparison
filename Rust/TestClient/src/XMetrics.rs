@@ -181,6 +181,8 @@ Latência P99:        {} ms",
                p50_latency_ms_fmt,
                p95_latency_ms_fmt,
                p99_latency_ms_fmt
-        )
+        );
+
+        writeln!(f, "\nGenerated at: {} UTC", chrono::Utc::now().format("%Y-%m-%d %H:%M:%S"))
     }
 }
