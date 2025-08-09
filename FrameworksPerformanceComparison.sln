@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFX.Core.Test", "CSharp\Cle
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFX.Core.Test.Setup", "CSharp\CleanArc\TFX.Core.Test.Setup\TFX.Core.Test.Setup.csproj", "{5CCCF8C8-A82D-0C1B-708C-1EA71C48C396}"
 EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "TFX.Core.UI", "CSharp\CleanArc\TFX.Core.UI\TFX.Core.UI.esproj", "{8BC9CF14-2FA8-A509-247C-8B4B68C81264}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +81,10 @@ Global
 		{5CCCF8C8-A82D-0C1B-708C-1EA71C48C396}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CCCF8C8-A82D-0C1B-708C-1EA71C48C396}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CCCF8C8-A82D-0C1B-708C-1EA71C48C396}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BC9CF14-2FA8-A509-247C-8B4B68C81264}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BC9CF14-2FA8-A509-247C-8B4B68C81264}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BC9CF14-2FA8-A509-247C-8B4B68C81264}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{8BC9CF14-2FA8-A509-247C-8B4B68C81264}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,6 +99,7 @@ Global
 		{F354A873-A81D-EB0C-FD69-2B62DA483297} = {741853ED-F17D-439F-A125-A801FD1B2378}
 		{06486595-E7BE-FFC6-BF61-BC602587A777} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{5CCCF8C8-A82D-0C1B-708C-1EA71C48C396} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{8BC9CF14-2FA8-A509-247C-8B4B68C81264} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EEDCEAB6-92CB-47BA-811F-66FB8F600A8B}

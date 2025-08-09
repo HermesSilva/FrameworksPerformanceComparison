@@ -8,8 +8,8 @@
 
 	<ItemGroup>
 	  <None Remove="TFX.App.INF.dsmdl" />
+	  <None Remove="TFX.App.INF.Test.dsmdl" />
 	  <None Remove="TFX.App.RLE.dsmdl" />
-	  <None Remove="TFX.App.Test.dsmdl" />
 	  <None Remove="TFX.App.TST.dsmdl" />
 	  <None Remove="TFX.Core.dsmdl" />
 	  <None Remove="TFX.Core.dsmdl" />
@@ -17,9 +17,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Include="TFX.App.Test.dsmdl">
+	  <Content Include="TFX.App.INF.Test.dsmdl">
 	    <Generator>XDASEGenerator</Generator>
-	    <LastGenOutput>TFX.App.Test.cs</LastGenOutput>
+	    <LastGenOutput>TFX.App.INF.Test.Module.cs</LastGenOutput>
 	  </Content>
 	</ItemGroup>
 
@@ -191,12 +191,6 @@
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>TFX.App.RLE.dsmdl</DependentUpon>
-	    <Visible>False</Visible>
-	  </Compile>
-	  <Compile Update="TFX.App.Test.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>TFX.App.Test.dsmdl</DependentUpon>
 	    <Visible>False</Visible>
 	  </Compile>
 	  <Compile Update="TFX.App.TST.Module.cs">

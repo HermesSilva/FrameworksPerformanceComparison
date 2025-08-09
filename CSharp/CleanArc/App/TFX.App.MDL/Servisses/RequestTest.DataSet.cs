@@ -34,6 +34,16 @@ namespace TFX.App.MDL.Servisses
                                                       Visible = false });
         }
     }
+    public class PayloadFields : XEndPointData
+    {
+        public XInt64DataField ID {get;set;}
+    }
+
+    public class ResultFields : XEndPointData
+    {
+        public XInt64DataField ID {get;set;}
+    }
+
     public class RequestTestTuple : XServiceDataTuple
     {
         public RequestTestTuple()
@@ -64,6 +74,8 @@ namespace TFX.App.MDL.Servisses
     public interface IRequestTestService : XIService
     {
 
+        ResultFields EndPoint(PayloadFields pData);
+
         RequestTestDataSet Execute();
     }
 
@@ -72,6 +84,11 @@ namespace TFX.App.MDL.Servisses
         public BaseRequestTestRule(XService pOwner)
             :base(pOwner)
         {
+        }
+
+        public virtual ResultFields EndPoint(PayloadFields pData)
+        {
+            return default;
         }
 
         public virtual void Execute()

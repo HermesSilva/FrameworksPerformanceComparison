@@ -23,6 +23,36 @@
       </XSVCPayloadEndPoint>
     </XSVCEndPoint>
     <XValues />
+    <XSVCEndPoint ID="70D3EB0E-3599-4253-BE22-CD566191E8CC" Name="EndPoint">
+      <XValues>
+        <XData Name="Title" ID="F9789344-AFE7-41A7-9D16-F4C22EAF190D" Type="String">
+          <XLanguage IETFCode="pt-br" IsDefault="true">End Point</XLanguage>
+        </XData>
+        <XData Name="RouteName" ID="6629C4F5-3DCD-4395-8594-5D22674BA82F" Type="String">OnlyID</XData>
+      </XValues>
+      <XSVCPayloadEndPoint Name="PayloadFields" ID="63FB1AB7-48DC-4BD5-97EF-F916E636F898">
+        <XValues />
+        <XSVCUserField ID="C1FD2E81-AB23-46CC-B409-EE4D6AE72E8B" Name="ID">
+          <XValues>
+            <XData Name="Title" ID="F9789344-AFE7-41A7-9D16-F4C22EAF190D" Type="String">
+              <XLanguage IETFCode="pt-br" IsDefault="true">User Data Field</XLanguage>
+            </XData>
+            <XData Name="TypeID" ID="244BD6B3-4873-4957-A34D-FD97F7DBD90D" Type="Guid">ADD41C4D-6BB4-49A6-856E-4CAA566DEBC2</XData>
+          </XValues>
+        </XSVCUserField>
+      </XSVCPayloadEndPoint>
+      <XSVCResultEndPoint Name="ResultFields" ID="CE293E7D-39E5-4F9B-B572-F9A88C189584">
+        <XValues />
+        <XSVCUserField ID="CDC37366-53DC-4699-B652-8AC0F0EA00B0" Name="ID">
+          <XValues>
+            <XData Name="Title" ID="F9789344-AFE7-41A7-9D16-F4C22EAF190D" Type="String">
+              <XLanguage IETFCode="pt-br" IsDefault="true">User Data Field</XLanguage>
+            </XData>
+            <XData Name="TypeID" ID="244BD6B3-4873-4957-A34D-FD97F7DBD90D" Type="Guid">ADD41C4D-6BB4-49A6-856E-4CAA566DEBC2</XData>
+          </XValues>
+        </XSVCUserField>
+      </XSVCResultEndPoint>
+    </XSVCEndPoint>
   </XSVCEndPoints>
   <XSVCAddIns Name="Additional" ID="F4537E8E-FB8A-49B9-BEFF-80A2626E0893">
     <XSVCInjectionSVC ID="F7FA5929-AD81-4E9F-B3F9-91FB88CDA534" Name="ServiceInjection">

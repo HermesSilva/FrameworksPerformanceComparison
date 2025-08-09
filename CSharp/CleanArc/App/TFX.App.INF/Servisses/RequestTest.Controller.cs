@@ -24,6 +24,11 @@ namespace TFX.App.INF.Servisses
                 :base(pController)
             {
             }
+
+            public virtual ResultFields EndPoint(PayloadFields pData)
+            {
+                return Controller.Service.EndPoint(pData);
+            }
         }
 
         public RequestTestController(IRequestTestService pService)
@@ -35,18 +40,19 @@ namespace TFX.App.INF.Servisses
         internal readonly IRequestTestService Service;
         private readonly INFRequestTestControllerRule _Rule;
 
-        [HttpPost("Search")]
-        public IActionResult Search()
+        [HttpPost("OnlyID")]
+        public IActionResult EndPoint([FromBody] PayloadFields pData)
         {
             try
             {
-                var dst = Service.Execute();
-                return Ok(dst);
+                var returns = _Rule.EndPoint(pData);
+                return Ok(returns);
             }
             catch (Exception pEx)
             {
                 return StatusCode(404, XEndPointMessage.Erro(pEx));
             }  
         }
+
     }
 }

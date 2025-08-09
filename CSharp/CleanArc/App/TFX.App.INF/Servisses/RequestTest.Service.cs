@@ -67,6 +67,11 @@ namespace TFX.App.INF.Servisses
             {
                 return null;
             }
+
+            public virtual ResultFields EndPoint(PayloadFields pData)
+            {
+                return ((BaseRequestTestRule)Service.Rule).EndPoint(pData);
+            }
         }
 
         public RequestTestService(ILogger<XService> pLogger, DBContext pContext)
@@ -97,6 +102,24 @@ namespace TFX.App.INF.Servisses
             Context.BeginTransaction();
             return _INFRule.Execute();
             Context.Commit();
+        }
+
+        public virtual ResultFields EndPoint(PayloadFields pData)
+        {
+            try
+            {
+                Context.BeginTransaction();
+                return _INFRule.EndPoint(pData);
+            }
+            catch
+            {
+                Context.Rollback();
+                throw;
+            }
+            finally
+            {
+                Context.Commit();
+            }
         }
     }
 }
